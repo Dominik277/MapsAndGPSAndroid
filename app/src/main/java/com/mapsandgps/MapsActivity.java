@@ -87,9 +87,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
                 try {
                     List<Address> listAddreses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+
                     if (listAddreses != null && listAddreses.size() > 0){
                         String address = "";
 
+                        if(listAddreses.get(0).getThoroughfare() != null){
+                            address += listAddreses.get(0).getThoroughfare() + " ";
+                        }
+
+                        if(listAddreses.get(0).getAdminArea() != null){
+                        address += listAddreses.get(0).getAdminArea() + " ";
+                    }
+                        if(listAddreses.get(0).getLocality() != null){
+                            address += listAddreses.get(0).getLocality() + " ";
+                        }
+                    Toast.makeText(MapsActivity.this,address,Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
